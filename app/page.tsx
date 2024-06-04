@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -57,7 +58,7 @@ export default function Home() {
                   Our app uses advanced audio processing to detect when each participant is speaking, without any manual
                   setup.
                 </p>
-                <img
+                <Image
                   src="/placeholder.svg"
                   width="300"
                   height="200"
@@ -71,7 +72,7 @@ export default function Home() {
                   Our app can identify each speaker in real-time, allowing you to follow the conversation and know who
                   is talking.
                 </p>
-                <img
+                <Image
                   src="/placeholder.svg"
                   width="300"
                   height="200"
@@ -85,7 +86,7 @@ export default function Home() {
                   Our app integrates seamlessly with your existing video conferencing tools, making it easy to use in
                   your daily meetings.
                 </p>
-                <img
+                <Image
                   src="/placeholder.svg"
                   width="300"
                   height="200"
@@ -129,8 +130,8 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-gray-500 dark:text-gray-400">
-                  "The speaker detection app has been a game-changer for our\n virtual meetings. It\'s accurate,
-                  reliable, and has\n significantly improved our productivity."
+                  "The speaker detection app has been a game-changer for our virtual meetings. It&apos;s accurate,
+                  reliable, and has significantly improved our productivity."
                 </p>
               </blockquote>
             </div>
@@ -146,7 +147,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">
               <Link
-                href="#"
+                href="speak"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
                 prefetch={false}
               >

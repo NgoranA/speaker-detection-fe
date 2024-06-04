@@ -15,7 +15,7 @@ export default function Component() {
           <CardHeader className="bg-gray-900 dark:bg-gray-700 px-6 py-4">
             <CardTitle className="text-white">Speaker Detection</CardTitle>
             <CardDescription className="text-gray-300">
-              Analyze the speaker's voice and get details about them.
+              Analyze the speaker&apos;s voice and get details about them.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 flex flex-col items-center justify-center gap-6">
@@ -25,13 +25,13 @@ export default function Component() {
             </Button>
             <div className="grid grid-cols-2 gap-4 w-full">
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
-                <div className="text-4xl font-bold">John Doe</div>
-                <div className="text-gray-500 dark:text-gray-400">Age: 35 | Gender: Male</div>
+                <div className="text-4xl font-bold">Kartel Belvanie</div>
+                <div className="text-gray-500 dark:text-gray-400">Student: M1 | Gender: Female</div>
               </div>
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
                 <div className="text-4xl font-bold">Confidence: 92%</div>
                 <div className="text-gray-500 dark:text-gray-400">
-                  The system is highly confident about the speaker's identity.
+                  The system is highly confident about the speaker&apos;s identity.
                 </div>
               </div>
             </div>
