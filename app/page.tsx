@@ -29,7 +29,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col items-start space-y-4">
-                <img
+                <Image
                   src="/placeholder.svg"
                   width="550"
                   height="400"
@@ -123,15 +123,15 @@ export default function Home() {
               </div>
               <blockquote className="bg-white dark:bg-gray-950 rounded-lg p-6 shadow-md">
                 <div className="flex items-center mb-4">
-                  <img src="/placeholder.svg" width="48" height="48" alt="Avatar" className="rounded-full mr-4" />
+                  <Image src="/placeholder.svg" width="48" height="48" alt="Avatar" className="rounded-full mr-4" />
                   <div>
                     <div className="text-lg font-bold">Jane Doe</div>
                     <div className="text-gray-500 dark:text-gray-400">CEO, Acme Inc.</div>
                   </div>
                 </div>
                 <p className="text-gray-500 dark:text-gray-400">
-                  "The speaker detection app has been a game-changer for our virtual meetings. It&apos;s accurate,
-                  reliable, and has significantly improved our productivity."
+                  &quot;The speaker detection app has been a game-changer for our virtual meetings. It&apos;s accurate,
+                  reliable, and has significantly improved our productivity.&quot;
                 </p>
               </blockquote>
             </div>
