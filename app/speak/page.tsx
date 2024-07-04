@@ -3,6 +3,7 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { Home } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import AudioRecorder from "@/components/AudioRecorder"
 
 export default function Component() {
   return (
@@ -19,22 +20,7 @@ export default function Component() {
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 flex flex-col items-center justify-center gap-6">
-            <Button size="lg" className="bg-primary text-white hover:bg-primary-500 transition-colors">
-              <MicIcon className="w-6 h-6 mr-2" />
-              Record
-            </Button>
-            <div className="grid grid-cols-2 gap-4 w-full">
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
-                <div className="text-4xl font-bold">Kartel Belvanie</div>
-                <div className="text-gray-500 dark:text-gray-400">Student: M1 | Gender: Female</div>
-              </div>
-              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
-                <div className="text-4xl font-bold">Confidence: 92%</div>
-                <div className="text-gray-500 dark:text-gray-400">
-                  The system is highly confident about the speaker&apos;s identity.
-                </div>
-              </div>
-            </div>
+            <AudioRecorder />
           </CardContent>
         </Card>
       </div>
@@ -42,23 +28,3 @@ export default function Component() {
   )
 }
 
-function MicIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-      <line x1="12" x2="12" y1="19" y2="22" />
-    </svg>
-  )
-}
