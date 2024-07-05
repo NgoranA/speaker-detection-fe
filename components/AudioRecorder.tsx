@@ -80,7 +80,7 @@ const AudioRecorder: React.FC = () => {
 								<div className="text-4xl font-bold">{prediction.predictedLabel}</div>
 							</div>
 							<div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
-								<div className="text-4xl font-bold">Confidence: {(prediction.confidence * 100).toFixed(2)}%</div>
+								<div className="text-3xl font-bold">Confidence: {(prediction.confidence * 100).toFixed(2)}%</div>
 								<div className="text-gray-500 dark:text-gray-400">
 									The system is highly confident about the speaker&apos;s identity.
 								</div>
