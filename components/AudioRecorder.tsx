@@ -1,35 +1,40 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 
+interface RecorderResult {
+	confidence: number;
+	predictedLabel: string;
+}
+
 const AudioRecorder: React.FC = () => {
 	const [isRecording, setIsRecording] = useState(false);
+	const [audioURL, setAudioURL] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false); // New loading state
 	const mediaRecorder = useRef<MediaRecorder | null>(null);
 	const audioChunks = useRef<Blob[]>([]);
+	const [prediction, setPrediction] = useState<RecorderResult | null>(null)
 
-	useEffect(() => {
-		const getMedia = async () => {
-			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-			mediaRecorder.current = new MediaRecorder(stream);
+	const startRecording = async () => {
+		const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+		mediaRecorder.current = new MediaRecorder(stream);
 
-			mediaRecorder.current.ondataavailable = (event: BlobEvent) => {
-				audioChunks.current.push(event.data);
-			};
-
-			mediaRecorder.current.onstop = () => {
-				const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
-				audioChunks.current = [];
-				sendAudioFile(audioBlob);
-			};
+		mediaRecorder.current.ondataavailable = (event: BlobEvent) => {
+			audioChunks.current.push(event.data);
 		};
 
-		getMedia().catch(console.error);
-	}, []);
+		mediaRecorder.current.onstop = () => {
+			const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+			const url = URL.createObjectURL(audioBlob);
+			setAudioURL(url);
+			audioChunks.current = [];
+			sendAudioFile(audioBlob);
+		};
 
-	const startRecording = () => {
 		setIsRecording(true);
-		mediaRecorder.current?.start();
+		mediaRecorder.current.start();
 	};
 
 	const stopRecording = () => {
@@ -38,36 +43,53 @@ const AudioRecorder: React.FC = () => {
 	};
 
 	const sendAudioFile = async (audioBlob: Blob) => {
+		setIsLoading(true); // Start loading		
+		toast("Smile :) we are detecting who you are.", { position: "top-right", id: "predicting" })
 		const formData = new FormData();
-		formData.append('audio', audioBlob, 'audio.wav');
+		formData.append('file', audioBlob, 'audio.wav');
+		try {
+			const response = await fetch('https://speaker-detection-app-backend.onrender.com/predict', {
+				method: 'POST',
+				body: formData,
+			});
 
-		const response = await fetch('http://your-django-backend-url/api/upload/', {
-			method: 'POST',
-			body: formData,
-		});
-
-		const result = await response.json();
-		console.log(result);
-		// Process the result as needed
+			const result = await response.json();
+			setPrediction({
+				predictedLabel: result.predicted_label,
+				confidence: result.confidence
+			})
+			if (result) toast.dismiss("predicting");
+		} catch (error) {
+			toast("Something happened!", { style: { backgroundColor: "red", color: "black" } })
+		} finally {
+			setIsLoading(false)
+		}
 	};
 
 	return (
 		<div className='flex flex-col justify-center gap-3'>
 			<Button onClick={isRecording ? stopRecording : startRecording} size="lg" className="bg-primary text-white hover:bg-primary-500 transition-colors">
-				<MicIcon className={cn(isRecording ?? "animate-pulse", "w-6 h-6 mr-2")} />
+				<MicIcon className={cn({ "animate-pulse": isRecording }, "w-6 h-6 mr-2")} />
 				{isRecording ? 'Stop Recording' : 'Start Recording'}
 			</Button>
 			<div className="grid grid-cols-2 gap-4 w-full">
-				<div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
-					<div className="text-4xl font-bold">Kartel Belvanie</div>
-					<div className="text-gray-500 dark:text-gray-400">Student: M1 | Gender: Female</div>
-				</div>
-				<div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
-					<div className="text-4xl font-bold">Confidence: 92%</div>
-					<div className="text-gray-500 dark:text-gray-400">
-						The system is highly confident about the speaker&apos;s identity.
-					</div>
-				</div>
+				{
+					prediction && !isLoading && (
+						<>
+							<div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
+								<div className="text-4xl font-bold">{prediction.predictedLabel}</div>
+							</div>
+							<div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 flex flex-col items-center justify-center">
+								<div className="text-4xl font-bold">Confidence: {(prediction.confidence * 100).toFixed(2)}%</div>
+								<div className="text-gray-500 dark:text-gray-400">
+									The system is highly confident about the speaker&apos;s identity.
+								</div>
+							</div>
+
+						</>
+
+					)
+				}
 			</div>
 		</div>
 	);

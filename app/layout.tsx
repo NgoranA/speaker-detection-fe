@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Libre_Franklin } from 'next/font/google'
 
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={libre_franklin.variable}>
         {children}
+        <Toaster />
       </body>
     </html>
   );
