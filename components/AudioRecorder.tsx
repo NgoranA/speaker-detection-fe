@@ -60,7 +60,7 @@ const AudioRecorder: React.FC = () => {
 			})
 			if (result) toast.dismiss("predicting");
 		} catch (error) {
-			toast("Something happened!", { style: { backgroundColor: "red", color: "black" } })
+			toast("Something happened!", { style: { backgroundColor: "orangered", color: "black" } })
 		} finally {
 			setIsLoading(false)
 		}
@@ -72,7 +72,7 @@ const AudioRecorder: React.FC = () => {
 				<MicIcon className={cn({ "animate-pulse": isRecording }, "w-6 h-6 mr-2")} />
 				{isRecording ? 'Stop Recording' : 'Start Recording'}
 			</Button>
-			<div className="grid grid-cols-2 gap-4 w-full">
+			<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
 				{
 					prediction && !isLoading && (
 						<>
